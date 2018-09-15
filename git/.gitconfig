@@ -1,0 +1,9 @@
+[user]
+    email = nicholas.c.meade@gmail.com
+    name = Nicholas Meade
+[core]
+    editor = vim
+[commit]
+    gpgsign = true
+[tag]
+    gpgSign = true
