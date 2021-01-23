@@ -9,7 +9,13 @@ set noshowmode
 let g:airline#extensions#whitespace#enabled=0
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme="solarized"
+
+" Change buffer
+map gn :bn<cr>
+map gp :bp<cr>
+map gd :bd<cr>
 
 " NerdTree file explorer toggle
 map <C-e> :NERDTreeToggle<CR>
