@@ -39,6 +39,10 @@ set cursorline
 " Sets a horizontal guide
 set colorcolumn=88
 
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
 " Execute current buffer
 nnoremap <F1> :!python %
 
