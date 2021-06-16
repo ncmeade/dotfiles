@@ -69,5 +69,8 @@ let g:fzf_colors =
 " NerdTree file explorer toggle
 map <C-e> :NERDTreeToggle <CR>
 
+" Disable ALE by default
+let g:ale_enabled = 0
+
 " ALE toggle
 nnoremap <F2> :ALEToggle <CR>
