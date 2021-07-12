@@ -1,6 +1,6 @@
 " Setup colourscheme 
 set background=dark
-colorscheme gruvbox
+colorscheme solarized8
 
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -39,13 +39,16 @@ set foldlevel=99
 " Execute current buffer
 nnoremap <F1> :!python %
 
+" Use Black formatter
+nnoremap <F3> :!black %
+
 " Airline configuration
 set noshowmode
 let g:airline#extensions#whitespace#enabled=0
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#fnamemod=":t"
-let g:airline_theme="gruvbox"
+let g:airline_theme="solarized"
 
 " Add fzf
 set rtp+=~/.fzf
