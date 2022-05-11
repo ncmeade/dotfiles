@@ -1,4 +1,18 @@
-" Setup colourscheme 
+" Plugins
+call plug#begin('~/.vim/plugged')
+    Plug 'lifepillar/vim-solarized8'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'preservim/nerdtree'
+    Plug 'ycm-core/youcompleteme'
+    Plug 'preservim/nerdcommenter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'psf/black', {'branch': 'stable'}
+    Plug 'dense-analysis/ale'
+call plug#end()
+
+" Colorscheme
 set background=dark
 colorscheme solarized8
 
@@ -11,7 +25,7 @@ endif
 " Change buffer
 map gn :bn <CR>
 map gp :bp <CR>
-map gd :bd <CR> 
+map gd :bd <CR>
 
 " Line numbering and autoindent
 set number
@@ -36,12 +50,6 @@ set colorcolumn=88
 set foldmethod=indent
 set foldlevel=99
 
-" Execute current buffer
-nnoremap <F1> :!python %
-
-" Use Black formatter
-nnoremap <F3> :!black %
-
 " Airline configuration
 set noshowmode
 let g:airline#extensions#whitespace#enabled=0
@@ -50,10 +58,19 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#fnamemod=":t"
 let g:airline_theme="solarized"
 
-" Add fzf
+" NerdTree file explorer toggle
+map <C-e> :NERDTreeToggle <CR>
+
+" Add FZF
 set rtp+=~/.fzf
 
-" Customize fzf colors to match colour scheme
+" Remove preview from YouCompleteMe
+set completeopt-=preview
+
+" Create default mappings for NerdCommenter
+let g:NERDCreateDefaultMappings = 1
+
+" Customize FZF colors to match colour scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -69,11 +86,15 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" NerdTree file explorer toggle
-map <C-e> :NERDTreeToggle <CR>
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
-" Disable ALE by default
-let g:ale_enabled = 0
+" Fall back unicode symbol.
+let g:airline_symbols.colnr = ' C:'
 
-" ALE toggle
-nnoremap <F2> :ALEToggle <CR>
+" Run Black
+map <C-f> :Black <CR>
+
+" Open FZF
+map <C-r> :FZF <CR>
