@@ -10,6 +10,7 @@ tmux_dev_environment () {
     tmux rename ${session_name}
     tmux renamew 'main'
     tmux new-window -n 'misc' -d
+    tmux new-window -n 'remote' -d
 
     # Split windows.
     tmux split-window -h -v -p 25 -t 0. -d
@@ -21,12 +22,15 @@ tmux_dev_environment () {
         tmux send-keys -t "${session_name}:0.1" "source env/bin/activate; clear" C-m
         tmux send-keys -t "${session_name}:1.0" "source env/bin/activate; clear" C-m
         tmux send-keys -t "${session_name}:1.1" "source env/bin/activate; clear" C-m
+        tmux send-keys -t "${session_name}:2.0" "source env/bin/activate; clear" C-m
     fi
 
     # Activate Ipython.
-	if [ -x "$(command -v ipython)" ]; then
+    if [ -x "$(command -v ipython)" ]; then
         tmux send-keys -t "${session_name}:1.1" "ipython" C-m
-	fi
+    fi
 
     tmux attach -t ${session_name}
 }
+
+alias ls="ls --color"
