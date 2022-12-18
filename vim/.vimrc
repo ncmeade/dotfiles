@@ -10,17 +10,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'psf/black', {'branch': 'stable'}
     Plug 'dense-analysis/ale'
+    Plug 'junegunn/fzf'
 call plug#end()
 
 " Colorscheme
+set t_Co=16
 set background=dark
 colorscheme solarized8
-
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
 
 " Change buffer
 map gn :bn <CR>
@@ -54,7 +50,7 @@ set foldlevel=99
 set noshowmode
 let g:airline#extensions#whitespace#enabled=0
 let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1  Don't include Powerline fonts.
 let g:airline#extensions#tabline#fnamemod=":t"
 let g:airline_theme="solarized"
 
@@ -62,7 +58,9 @@ let g:airline_theme="solarized"
 map <C-e> :NERDTreeToggle <CR>
 
 " Add FZF
-set rtp+=~/.fzf
+set rtp+=~/.fzf.zsh
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
 
 " Remove preview from YouCompleteMe
 set completeopt-=preview
@@ -98,3 +96,9 @@ map <C-f> :Black <CR>
 
 " Open FZF
 map <C-r> :FZF <CR>
+
+" To get proper backspaces.
+set backspace=indent,eol,start
+
+" Insert IPDB break.
+map <C-p> iimport ipdb; ipdb.set_trace()<Esc>
