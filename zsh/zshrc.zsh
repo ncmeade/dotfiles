@@ -1,5 +1,6 @@
-# Custom prompt
-source ~/.zsh/prompt.zsh
+# Minimal Prompt:
+# source ~/.zsh/prompt.zsh
+source ~/.zsh/agnoster.sh
 
 # Load syntax highlighting
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -31,19 +32,11 @@ if [[ "$(tput colors)" == "256" ]]; then
     ZSH_HIGHLIGHT_STYLES[comment]=fg=246
 fi
 
-# Enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 # Initialize completion
 autoload -Uz compinit && compinit -i
 zstyle ':completion:*' menu select=4
 zmodload zsh/complist
+
 # Use vim style navigation keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -72,14 +65,18 @@ export EDITOR=vim
 
 # Use vim style line editing in zsh
 bindkey -v
+
 # Movement
 bindkey -a 'gg' beginning-of-buffer-or-history
 bindkey -a 'G' end-of-buffer-or-history
+
 # Undo
 bindkey -a 'u' undo
 bindkey -a '^R' redo
+
 # Edit line
 bindkey -a '^V' edit-command-line
+
 # Backspace
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
@@ -103,3 +100,18 @@ export NVM_DIR="$HOME/.nvm"
 
 # Aliases
 source ~/.zsh/aliases.sh
+
+# Add virtualenv to PATH
+export PATH=$PATH:$HOME/Library/Python/3.10/bin
+
+# Use more minimal prompt
+export PROMPT_MODE=1
+
+# Use solarized theme for bat
+export BAT_THEME="Solarized (dark)"
+
+# Use FZF to cd
+bindkey "ç" fzf-cd-widget
+
+# Use bat for man pages
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
