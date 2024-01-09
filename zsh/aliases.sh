@@ -34,3 +34,4 @@ tmux_dev_environment () {
 }
 
 alias ls="ls --color"
+alias isort="isort --profile=black"
