@@ -33,5 +33,8 @@ tmux_dev_environment () {
     tmux attach -t ${session_name}
 }
 
+# Open aliases for easy editing.
+alias aliases="vim ~/.zsh/aliases.sh && source ~/.zsh/aliases.sh"
+
 alias ls="ls --color"
 alias isort="isort --profile=black"
