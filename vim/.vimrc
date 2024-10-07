@@ -71,9 +71,6 @@ nnoremap <C-r> :GFiles<CR>
 " Change FZF layout
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 }}
 
-" Remove preview from YouCompleteMe
-set completeopt-=preview
-
 " Create default mappings for NerdCommenter
 let g:NERDCreateDefaultMappings=1
 
@@ -81,7 +78,7 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" Fall back unicode symbol
+" Simple column symbol
 let g:airline_symbols.colnr = ' C:'
 
 " Run Black
