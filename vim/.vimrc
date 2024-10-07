@@ -3,12 +3,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'altercation/vim-colors-solarized'
+    Plug 'preservim/vimux'
     Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
+    Plug 'ryanoasis/vim-devicons'
     Plug 'psf/black', {'branch': 'stable'}
-    Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'lervag/vimtex'
@@ -21,8 +22,9 @@ set encoding=utf-8
 set background=dark
 colorscheme solarized
 
-" Enable bold fonts
-let g:solarized_bold = 1
+" Font settings
+let g:solarized_bold=1
+let g:solarized_italic=1
 
 " Change buffer
 map gn :bn <CR>
@@ -58,12 +60,13 @@ let g:airline#extensions#whitespace#enabled=0
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=":t"
 let g:airline_theme="solarized"
+let g:airline_powerline_fonts=1
 
 " NerdTree file explorer toggle
 map <C-e> :NERDTreeToggle <CR>
 
 " Bind FZF
-nnoremap <C-r> :GFiles<Cr>
+nnoremap <C-r> :GFiles<CR>
 
 " Change FZF layout
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 }}
@@ -72,7 +75,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true
 set completeopt-=preview
 
 " Create default mappings for NerdCommenter
-let g:NERDCreateDefaultMappings = 1
+let g:NERDCreateDefaultMappings=1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -88,10 +91,18 @@ map <C-f> :Black <CR>
 set backspace=indent,eol,start
 
 " Insert IPDB break
-map <C-p> iimport ipdb; ipdb.set_trace()<Esc>
+map <C-p> iimport ipdb; ipdb.set_trace() <Esc>
 
 " For VimTex to work properly
 filetype plugin indent on
+
+" VimMux configuration
+map <C-j> :VimuxPromptCommand <CR>
+map <C-k> :VimuxRunLastCommand <CR>
+map <C-l> :VimuxClearTerminalScreen <CR>
+map <C-o> :VimuxCloseRunner <CR>
+let g:VimuxOrientation = "v"
+let g:VimuxHeight = "20"
 
 " Make CursorLineNr and SignColumn have same background as CursorLine
 highlight clear CursorLineNr

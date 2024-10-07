@@ -598,3 +598,8 @@ c.TerminalInteractiveShell.editing_mode = 'vi'
 ## If True, any %store-d variables will be automatically restored when IPython
 #  starts.
 #c.StoreMagics.autorestore = False
+
+#------------------------------------------------------------------------------
+# Personal modifications
+#------------------------------------------------------------------------------
+c.TerminalInteractiveShell.autosuggestions_provider = None

@@ -1,11 +1,9 @@
+##!/usr/bin/env bash
 # Minimal Prompt:
-# source ~/.zsh/prompt.zsh
-source ~/.zsh/agnoster.sh
+source ~/.zsh/prompt.zsh
 
 # Load syntax highlighting
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 if [[ "$(tput colors)" == "256" ]]; then
     ZSH_HIGHLIGHT_STYLES[default]=none
@@ -31,6 +29,8 @@ if [[ "$(tput colors)" == "256" ]]; then
     ZSH_HIGHLIGHT_STYLES[assign]=fg=037
     ZSH_HIGHLIGHT_STYLES[comment]=fg=246
 fi
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 # Initialize completion
 autoload -Uz compinit && compinit -i
@@ -70,17 +70,6 @@ bindkey -v
 bindkey -a 'gg' beginning-of-buffer-or-history
 bindkey -a 'G' end-of-buffer-or-history
 
-# Undo
-bindkey -a 'u' undo
-bindkey -a '^R' redo
-
-# Edit line
-bindkey -a '^V' edit-command-line
-
-# Backspace
-bindkey '^?' backward-delete-char
-bindkey '^H' backward-delete-char
-
 # Use incremental search
 bindkey "^R" history-incremental-search-backward
 
@@ -106,8 +95,9 @@ export PATH=$PATH:$HOME/Library/Python/3.10/bin
 
 # Use more minimal prompt
 export PROMPT_MODE=1
+export RPR_SHOW_GIT=(false, false)
 
-# Use solarized theme for bat
+# Use Solarized theme for bat
 export BAT_THEME="Solarized (dark)"
 
 # Use FZF to cd
