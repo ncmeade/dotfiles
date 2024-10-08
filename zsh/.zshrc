@@ -37,7 +37,7 @@ autoload -Uz compinit && compinit -i
 zstyle ':completion:*' menu select=4
 zmodload zsh/complist
 
-# Use vim style navigation keys in menu completion
+# Use Vim style navigation keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
@@ -58,34 +58,25 @@ setopt incappendhistory
 setopt extendedhistory
 
 # Time to wait for additional characters in a sequence
-KEYTIMEOUT=1 # corresponds to 10ms
+KEYTIMEOUT=1 # Corresponds to 10ms
 
 # Use vim as the editor
 export EDITOR=vim
 
-# Use vim style line editing in zsh
+# Use Vim style line editing in zsh
 bindkey -v
-
-# Movement
-bindkey -a 'gg' beginning-of-buffer-or-history
-bindkey -a 'G' end-of-buffer-or-history
 
 # Use incremental search
 bindkey "^R" history-incremental-search-backward
 
+# Edit command line in Vim
+bindkey -a '^E' edit-command-line
+
 # Disable shell builtins
 disable r
 
-# Avoid issue with GPG:
-# https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
-export GPG_TTY=$(tty)
-
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases
 source ~/.zsh/aliases.sh
@@ -99,9 +90,6 @@ export RPR_SHOW_GIT=(false, false)
 
 # Use Solarized theme for bat
 export BAT_THEME="Solarized (dark)"
-
-# Use FZF to cd
-bindkey "ç" fzf-cd-widget
 
 # Use bat for man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
