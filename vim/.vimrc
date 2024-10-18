@@ -14,6 +14,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'lervag/vimtex'
 call plug#end()
 
+" Make the escape key more responsive.
+set ttimeout
+set ttimeoutlen=100
+
 " Use the Solarized colourscheme. For more information on Solarized, see:
 " https://ethanschoonover.com/solarized/.
 set background=dark
@@ -84,7 +88,10 @@ nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fh :Helptags<cr>
 " Mappings for Vimux.
 nnoremap <leader>vp :VimuxPromptCommand<cr>
-nnoremap <leader>vl :VimuxRunLastCommand<cr>
+nnoremap <leader>vr :VimuxRunLastCommand<cr>
+nnoremap <leader>vl :VimuxClearTerminalScreen<cr>
+nnoremap <leader>vi :VimuxInterruptRunner<cr>
+nnoremap <leader>vo :VimuxOpenRunner<cr>
 nnoremap <leader>vc :VimuxCloseRunner<cr>
 " Mappings for NERDTree.
 nnoremap <leader>nt :NERDTreeToggle<cr>
@@ -96,8 +103,8 @@ nnoremap <leader>lb :Black<cr>
 " Insert a breakpoint.
 nnoremap <leader>di ibreakpoint()<esc>
 " Mappings for easy changes to vimrc.
-nnoremap <leader>ve :split $MYVIMRC<cr>
-nnoremap <leader>vs :source $MYVIMRC<cr>
+nnoremap <leader>re :split $MYVIMRC<cr>
+nnoremap <leader>rs :source $MYVIMRC<cr>
 
 " Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
 " issue with using the Solarized colourscheme. I can look into a better fix
