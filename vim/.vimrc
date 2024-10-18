@@ -61,8 +61,8 @@ let g:airline_theme="solarized"
 let g:airline_powerline_fonts=1
 
 " FZF configuration.
-" Make the search window take up 90% of the width and 60% of the height.
-let g:fzf_layout={'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0}}
+" Make the search window take up 90% of the width and 75% of the height.
+let g:fzf_layout={'window': { 'width': 0.90, 'height': 0.75, 'relative': v:true, 'yoffset': 1.0}}
 
 " Vimux configuration.
 " Open the pane with a vertical split instead of a horizontal one.
@@ -81,6 +81,7 @@ nnoremap <leader>fg :GFiles<cr>
 nnoremap <leader>ff :Files<cr>
 nnoremap <leader>fl :Rg<cr>
 nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>fh :Helptags<cr>
 " Mappings for Vimux.
 nnoremap <leader>vp :VimuxPromptCommand<cr>
 nnoremap <leader>vl :VimuxRunLastCommand<cr>
