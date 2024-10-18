@@ -79,7 +79,7 @@ disable r
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Aliases
-source ~/.zsh/aliases.zsh
+source ~/.zsh/aliases.sh
 
 # Add virtualenv to PATH
 export PATH=$PATH:$HOME/Library/Python/3.10/bin
@@ -93,3 +93,6 @@ export BAT_THEME="Solarized (dark)"
 
 # Use bat for man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Make breakpoint builtin in Python use ipdb
+export PYTHONBREAKPOINT="ipdb.set_trace"

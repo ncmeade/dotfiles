@@ -91,6 +91,9 @@ nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>gs :Git<cr>
 " Mappings for code formatting/linting.
 nnoremap <leader>lb :Black<cr>
+" Mappings for Python.
+" Insert a breakpoint.
+nnoremap <leader>di ibreakpoint()<esc>
 " Mappings for easy changes to vimrc.
 nnoremap <leader>ve :split $MYVIMRC<cr>
 nnoremap <leader>vs :source $MYVIMRC<cr>
