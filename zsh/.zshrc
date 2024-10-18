@@ -79,7 +79,7 @@ disable r
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Aliases
-source ~/.zsh/aliases.sh
+source ~/.zsh/aliases.zsh
 
 # Add virtualenv to PATH
 export PATH=$PATH:$HOME/Library/Python/3.10/bin
