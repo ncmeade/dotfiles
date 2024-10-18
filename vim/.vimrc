@@ -1,4 +1,3 @@
-" Plugins
 call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -10,98 +9,95 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'ryanoasis/vim-devicons'
     Plug 'psf/black', {'branch': 'stable'}
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
     Plug 'junegunn/fzf.vim'
     Plug 'lervag/vimtex'
 call plug#end()
 
-" Set encoding
-set encoding=utf-8
-
-" Colorscheme
+" Use the Solarized colourscheme. For more information on Solarized, see:
+" https://ethanschoonover.com/solarized/.
 set background=dark
 colorscheme solarized
 
-" Font settings
+" Use bold and italic fonts.
 let g:solarized_bold=1
 let g:solarized_italic=1
 
-" Change buffer
-map gn :bn <CR>
-map gp :bp <CR>
-map gd :bd <CR>
-
-" Line numbering and autoindent
+" Use absolute line numbering.
 set number
-set autoindent
 
-" 4 space tabs
+" Use a cursorline to show position in file.
+set cursorline
+
+" Set a vertical guide for line length.
+set colorcolumn=88
+
+" Use four space tabs.
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+" Automatically convert tabs to spaces.
 set expandtab
 
-" Syntax highlighting
-syntax on
-
-" Enables cursorline
-set cursorline
-
-" Sets a horizontal guide
-set colorcolumn=88
-
-" Enable folding
+" Code folding configuration.
+" Fold based on indentation.
 set foldmethod=indent
+" Unfolded by default.
 set foldlevel=99
 
-" Airline configuration
+" Set the file type plugins.
+" This is needed by VimTeX, for instance.
+filetype plugin indent on
+
+" Airline configuration.
+" Let Airline handle it.
 set noshowmode
-let g:airline#extensions#whitespace#enabled=0
+" Show buffers when only one tab is open.
 let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#whitespace#enabled=0
+" Show the tail (last component) of the filename.
 let g:airline#extensions#tabline#fnamemod=":t"
 let g:airline_theme="solarized"
 let g:airline_powerline_fonts=1
 
-" NerdTree file explorer toggle
-map <C-e> :NERDTreeToggle <CR>
+" FZF configuration.
+" Make the search window take up 90% of the width and 60% of the height.
+let g:fzf_layout={'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0}}
 
-" Bind FZF
-nnoremap <C-r> :GFiles<CR>
-
-" Change FZF layout
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 }}
-
-" Create default mappings for NerdCommenter
-let g:NERDCreateDefaultMappings=1
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" Simple column symbol
-let g:airline_symbols.colnr = ' C:'
-
-" Run Black
-map <C-f> :Black <CR>
-
-" To get proper backspaces
-set backspace=indent,eol,start
-
-" Insert IPDB break
-map <C-p> iimport ipdb; ipdb.set_trace() <Esc>
-
-" For VimTex to work properly
-filetype plugin indent on
-
-" VimMux configuration
-map <C-j> :VimuxPromptCommand <CR>
-map <C-k> :VimuxRunLastCommand <CR>
-map <C-l> :VimuxClearTerminalScreen <CR>
-map <C-o> :VimuxCloseRunner <CR>
+" Vimux configuration.
+" Open the pane with a vertical split instead of a horizontal one.
 let g:VimuxOrientation = "v"
-let g:VimuxHeight = "20"
+" The vertical pane takes up 20% of the height.
+let g:VimuxHeight = "20%"
 
-" Make CursorLineNr and SignColumn have same background as CursorLine
+" Custom mappings.
+let mapleader=" "
+" Mappings for managing buffers.
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bd :bd<cr>
+" Mappings for FZF.
+nnoremap <leader>fg :GFiles<cr>
+nnoremap <leader>ff :Files<cr>
+nnoremap <leader>fl :Rg<cr>
+nnoremap <leader>fb :Buffers<cr>
+" Mappings for Vimux.
+nnoremap <leader>vp :VimuxPromptCommand<cr>
+nnoremap <leader>vl :VimuxRunLastCommand<cr>
+nnoremap <leader>vc :VimuxCloseRunner<cr>
+" Mappings for NERDTree.
+nnoremap <leader>nt :NERDTreeToggle<cr>
+" Mappings for Fugitive.
+nnoremap <leader>gs :Git<cr>
+" Mappings for code formatting/linting.
+nnoremap <leader>lb :Black<cr>
+" Mappings for easy changes to vimrc.
+nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>vs :source $MYVIMRC<cr>
+
+" Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
+" issue with using the Solarized colourscheme. I can look into a better fix
+" later.
 highlight clear CursorLineNr
 highlight CursorLineNr ctermfg=grey ctermbg=black
 highlight SignColumn ctermfg=grey ctermbg=black
