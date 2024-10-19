@@ -18,6 +18,9 @@ call plug#end()
 set ttimeout
 set ttimeoutlen=100
 
+" Search matches are shown as you type.
+set incsearch
+
 " Use the Solarized colourscheme. For more information on Solarized, see:
 " https://ethanschoonover.com/solarized/.
 set background=dark
@@ -73,38 +76,49 @@ let g:fzf_layout={'window': { 'width': 0.90, 'height': 0.75, 'relative': v:true,
 let g:VimuxOrientation = "v"
 " The vertical pane takes up 20% of the height.
 let g:VimuxHeight = "20%"
+" Slime-like functionality.
+" Sends the contents of the register to the REPL.
+function! VimuxSlime()
+    " Remove blank lines.
+    let empty_lines_pat = '\(^\|\n\)\zs\(\s*\n\+\)\+'
+    let no_empty_lines = substitute(@v, empty_lines_pat, "", "g")
+    " Send the contents of the register to the REPL.
+    call VimuxRunCommand(no_empty_lines)
+endfunction
 
 " Custom mappings.
 let mapleader=" "
 " Mappings for managing buffers.
-nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bp<cr>
-nnoremap <leader>bd :bd<cr>
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bd :bd<CR>
 " Mappings for FZF.
-nnoremap <leader>fg :GFiles<cr>
-nnoremap <leader>ff :Files<cr>
-nnoremap <leader>fl :Rg<cr>
-nnoremap <leader>fb :Buffers<cr>
-nnoremap <leader>fh :Helptags<cr>
+nnoremap <Leader>fg :GFiles<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fl :Rg<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fh :Helptags<CR>
 " Mappings for Vimux.
-nnoremap <leader>vp :VimuxPromptCommand<cr>
-nnoremap <leader>vr :VimuxRunLastCommand<cr>
-nnoremap <leader>vl :VimuxClearTerminalScreen<cr>
-nnoremap <leader>vi :VimuxInterruptRunner<cr>
-nnoremap <leader>vo :VimuxOpenRunner<cr>
-nnoremap <leader>vc :VimuxCloseRunner<cr>
+nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <Leader>vr :VimuxRunLastCommand<CR>
+nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
+nnoremap <Leader>vi :VimuxInterruptRunner<CR>
+nnoremap <Leader>vo :VimuxOpenRunner<CR>
+nnoremap <Leader>vc :VimuxCloseRunner<CR>
+" Copy the highlighted text to the register and send it to the REPL.
+vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
 " Mappings for NERDTree.
-nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
 " Mappings for Fugitive.
-nnoremap <leader>gs :Git<cr>
+nnoremap <Leader>gs :Git<CR>
 " Mappings for code formatting/linting.
-nnoremap <leader>lb :Black<cr>
+nnoremap <Leader>lb :Black<CR>
 " Mappings for Python.
 " Insert a breakpoint.
-nnoremap <leader>di ibreakpoint()<esc>
+nnoremap <Leader>di ibreakpoint()<Esc>
 " Mappings for easy changes to vimrc.
-nnoremap <leader>re :split $MYVIMRC<cr>
-nnoremap <leader>rs :source $MYVIMRC<cr>
+nnoremap <Leader>re :split $MYVIMRC<CR>
+nnoremap <Leader>rs :source $MYVIMRC<CR>
 
 " Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
 " issue with using the Solarized colourscheme. I can look into a better fix
