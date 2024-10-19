@@ -86,6 +86,9 @@ function! VimuxSlime()
     call VimuxRunCommand(no_empty_lines)
 endfunction
 
+" Don't show icons in statusline.
+let g:webdevicons_enable_airline_statusline=0
+
 " Custom mappings.
 let mapleader=" "
 " Mappings for managing buffers.
