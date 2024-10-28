@@ -1,0 +1,4 @@
+set font 'JetBrainsMono NF Regular 14'
+
+map J zoom out
+map K zoom in

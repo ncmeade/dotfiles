@@ -33,6 +33,21 @@ cp vim/.vimrc $HOME/.vimrc
 To install plugins, open `vim` and run `:PlugInstall`.
 This should download and install all of the plugins listed in the `.vimrc`.
 
+### Zathura
+The Homebrew formula to install Zathura is available [here](https://github.com/zegervdv/homebrew-zathura).
+The commands below can be used to install Zathura
+```bash
+brew tap zegervdv/zathura
+brew install zathura-pdf-poppler
+```
+Zathura should work now.
+You can test it by trying to open a PDF. 
+The custom configuration for Zathura can be installed via
+```bash
+mkdir -p $HOME/.config/zathura
+cp zathura/zathurarc $HOME/.config/zathura/zathurarc
+```
+
 ### Zsh
 Many of these configuration options were adapted from [Anish Athalye's](https://github.com/anishathalye/dotfiles) dotfiles.
 To setup `zsh`, first copy the configuration file via
