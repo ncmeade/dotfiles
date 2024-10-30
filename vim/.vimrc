@@ -1,3 +1,4 @@
+" Plugins {{{
 call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -13,22 +14,22 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'lervag/vimtex'
 call plug#end()
+" }}}
 
+" Vimscript folding {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" General {{{
 " Make the escape key more responsive.
 set ttimeout
 set ttimeoutlen=100
 
 " Search matches are shown as you type.
 set incsearch
-
-" Use the Solarized colourscheme. For more information on Solarized, see:
-" https://ethanschoonover.com/solarized/.
-set background=dark
-colorscheme solarized
-
-" Use bold and italic fonts.
-let g:solarized_bold=1
-let g:solarized_italic=1
 
 " Use absolute line numbering.
 set number
@@ -39,45 +40,89 @@ set cursorline
 " Set a vertical guide for line length.
 set colorcolumn=88
 
-" Use four space tabs.
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-" Automatically convert tabs to spaces.
-set expandtab
+" Unfold by default.
+set foldlevelstart=99
 
-" Code folding configuration.
-" Fold based on indentation.
-set foldmethod=indent
-" Unfolded by default.
-set foldlevel=99
-
-" Set the file type plugins.
-" This is needed by VimTeX, for instance.
+" Infer settings based on file type.
 filetype plugin indent on
 
-" Airline configuration.
-" Let Airline handle it.
+" Show existing tabs with four space width.
+set tabstop=4
+
+" Use four spaces when indenting.
+set shiftwidth=4
+
+" Use four spaces when pressing tab.
+set expandtab
+" }}}
+
+" Colourscheme {{{
+" Use the Solarized colourscheme. See: https://ethanschoonover.com/solarized/
+set background=dark
+colorscheme solarized
+
+" Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
+" issue with using the Solarized colourscheme. I can look into a better fix later.
+highlight clear CursorLineNr
+highlight CursorLineNr ctermfg=grey ctermbg=black
+highlight SignColumn ctermfg=grey ctermbg=black
+" }}}
+
+" Airline {{{
+" Let Airline handle the mode.
 set noshowmode
+
 " Show buffers when only one tab is open.
 let g:airline#extensions#tabline#enabled=1
+
+" Disable the detection of whitespace errors.
 let g:airline#extensions#whitespace#enabled=0
+"
 " Show the tail (last component) of the filename.
 let g:airline#extensions#tabline#fnamemod=":t"
+
+" Use Airline theme to match colourscheme.
 let g:airline_theme="solarized"
+
+" Use fancy fonts.
 let g:airline_powerline_fonts=1
+" }}}
 
-" FZF configuration.
+" Devicons {{{
+" Disable fancy icons in the statusline.
+let g:webdevicons_enable_airline_statusline=0
+" }}}
+
+" FZF {{{
 " Make the search window take up 90% of the width and 75% of the height.
-let g:fzf_layout={'window': { 'width': 0.90, 'height': 0.75, 'relative': v:true, 'yoffset': 1.0}}
+let g:fzf_layout = {'window': { 'width': 0.90, 'height': 0.75, 'relative': v:true, 'yoffset': 1.0}}
 
-" Vimux configuration.
+" Send everything that's selected to the quickfix list.
+function! s:build_quickfix_list(lines)
+	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+	copen
+	cc
+endfunction
+
+" Bindings for when FZF is open.
+let g:fzf_action = {
+	\ 'ctrl-q': function('s:build_quickfix_list'),
+	\ 'ctrl-t': 'tab split',
+	\ 'ctrl-x': 'split',
+	\ 'ctrl-v': 'vsplit' }
+
+" Make <C-a> select everything.
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+" }}}
+
+" Vimux {{{
 " Open the pane with a vertical split instead of a horizontal one.
 let g:VimuxOrientation = "v"
+"
 " The vertical pane takes up 20% of the height.
 let g:VimuxHeight = "20%"
-" Slime-like functionality.
-" Sends the contents of the register to the REPL.
+
+" Slime-like functionality. Sends the contents of the register to the REPL.
 function! VimuxSlime()
     " Remove blank lines.
     let empty_lines_pat = '\(^\|\n\)\zs\(\s*\n\+\)\+'
@@ -85,47 +130,47 @@ function! VimuxSlime()
     " Send the contents of the register to the REPL.
     call VimuxRunCommand(no_empty_lines)
 endfunction
+" }}}
 
-" Don't show icons in statusline.
-let g:webdevicons_enable_airline_statusline=0
+" VimTeX {{{
+" Use Zathura as the viewer.
+let g:vimtex_view_method = 'zathura'
+" }}}
 
-" Custom mappings.
+" Mappings {{{
 let mapleader=" "
-" Mappings for managing buffers.
+
+" Buffer management
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>bd :bd<CR>
-" Mappings for FZF.
+
+" FZF
 nnoremap <Leader>fg :GFiles<CR>
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fl :Rg<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fh :Helptags<CR>
-" Mappings for Vimux.
+
+" Vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
 nnoremap <Leader>vr :VimuxRunLastCommand<CR>
 nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
 nnoremap <Leader>vi :VimuxInterruptRunner<CR>
 nnoremap <Leader>vo :VimuxOpenRunner<CR>
 nnoremap <Leader>vc :VimuxCloseRunner<CR>
-" Copy the highlighted text to the register and send it to the REPL.
 vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
-" Mappings for NERDTree.
+
+" NERDTree
 nnoremap <Leader>nt :NERDTreeToggle<CR>
-" Mappings for Fugitive.
+
+" Fugitive
 nnoremap <Leader>gs :Git<CR>
-" Mappings for code formatting/linting.
+nnoremap <Leader>gl :Git log<CR>
+
+" Miscellaneous
 nnoremap <Leader>lb :Black<CR>
-" Mappings for Python.
-" Insert a breakpoint.
 nnoremap <Leader>di ibreakpoint()<Esc>
-" Mappings for easy changes to vimrc.
 nnoremap <Leader>re :split $MYVIMRC<CR>
 nnoremap <Leader>rs :source $MYVIMRC<CR>
-
-" Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
-" issue with using the Solarized colourscheme. I can look into a better fix
-" later.
-highlight clear CursorLineNr
-highlight CursorLineNr ctermfg=grey ctermbg=black
-highlight SignColumn ctermfg=grey ctermbg=black
+" }}}
