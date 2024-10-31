@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'altercation/vim-colors-solarized'
+    Plug 'sheerun/vim-polyglot'
     Plug 'preservim/vimux'
     Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
@@ -94,8 +95,8 @@ let g:webdevicons_enable_airline_statusline=0
 " }}}
 
 " FZF {{{
-" Make the search window take up 90% of the width and 75% of the height.
-let g:fzf_layout = {'window': { 'width': 0.90, 'height': 0.75, 'relative': v:true, 'yoffset': 1.0}}
+" Make the search window take up 95% of the width and 95% of the height.
+let g:fzf_layout = {'window': { 'width': 0.95, 'height': 0.95, 'relative': v:true, 'yoffset': 1.0}}
 
 " Send everything that's selected to the quickfix list.
 function! s:build_quickfix_list(lines)
@@ -155,10 +156,9 @@ nnoremap <Leader>fh :Helptags<CR>
 " Vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
 nnoremap <Leader>vr :VimuxRunLastCommand<CR>
+nnoremap <Leader>vb :call VimuxRunCommand("python3 " . bufname("%"))<CR>
 nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
-nnoremap <Leader>vi :VimuxInterruptRunner<CR>
-nnoremap <Leader>vo :VimuxOpenRunner<CR>
-nnoremap <Leader>vc :VimuxCloseRunner<CR>
+nnoremap <Leader>vc :VimuxInterruptRunner<CR>
 vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
 
 " NERDTree
