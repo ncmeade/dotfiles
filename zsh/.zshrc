@@ -1,4 +1,4 @@
-##!/usr/bin/env bash
+#!/usr/bin/env bash
 # Minimal Prompt:
 source ~/.zsh/prompt.zsh
 
@@ -47,15 +47,22 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 autoload -U edit-command-line && zle -N edit-command-line
 
 # Enable interactive comments (# on the command line)
-setopt interactivecomments
+setopt INTERACTIVE_COMMENTS
 
-# Nicer history
+# History
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
 SAVEHIST=$HISTSIZE
-setopt appendhistory
-setopt incappendhistory
-setopt extendedhistory
+# Append to history file
+setopt APPEND_HISTORY
+# Write to the history file immediately
+setopt INC_APPEND_HISTORY
+# Use more verbose format for entries 
+setopt EXTENDED_HISTORY
+# Don't log commands that start with a space
+setopt HIST_IGNORE_SPACE
+# Share history between sessions
+setopt SHARE_HISTORY
 
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1 # Corresponds to 10ms
