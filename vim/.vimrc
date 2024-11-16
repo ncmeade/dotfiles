@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'altercation/vim-colors-solarized'
+    Plug 'christoomey/vim-tmux-navigator'
     Plug 'sheerun/vim-polyglot'
     Plug 'preservim/vimux'
     Plug 'preservim/nerdtree'
@@ -58,7 +59,6 @@ set expandtab
 " }}}
 
 " Colourscheme {{{
-" Use the Solarized colourscheme. See: https://ethanschoonover.com/solarized/
 set background=dark
 colorscheme solarized
 
@@ -78,7 +78,7 @@ let g:airline#extensions#tabline#enabled=1
 
 " Disable the detection of whitespace errors.
 let g:airline#extensions#whitespace#enabled=0
-"
+
 " Show the tail (last component) of the filename.
 let g:airline#extensions#tabline#fnamemod=":t"
 
@@ -136,6 +136,9 @@ endfunction
 " VimTeX {{{
 " Use Zathura as the viewer.
 let g:vimtex_view_method = 'zathura'
+
+" Stop the quickfix window from being opened automatically.
+let g:vimtex_quickfix_mode = 0
 " }}}
 
 " Mappings {{{
@@ -144,6 +147,7 @@ let mapleader=" "
 " Buffer management
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>ba :badd 
 nnoremap <Leader>bd :bd<CR>
 
 " FZF
@@ -170,7 +174,7 @@ nnoremap <Leader>gl :Git log<CR>
 
 " Miscellaneous
 nnoremap <Leader>lb :Black<CR>
-nnoremap <Leader>di ibreakpoint()<Esc>
+nnoremap <Leader>di i breakpoint()<Esc>==^
 nnoremap <Leader>re :split $MYVIMRC<CR>
 nnoremap <Leader>rs :source $MYVIMRC<CR>
 " }}}
