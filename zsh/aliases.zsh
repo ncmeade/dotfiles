@@ -25,7 +25,7 @@ tmux_dev_environment () {
         tmux send-keys -t "${session_name}:2.0" "source env/bin/activate; clear" C-m
     fi
 
-    # Activate Ipython.
+    # Activate IPython.
     if [ -x "$(command -v ipython)" ]; then
         tmux send-keys -t "${session_name}:1.1" "ipython" C-m
     fi
@@ -38,3 +38,5 @@ alias aliases="vim ~/.zsh/aliases.sh && source ~/.zsh/aliases.sh"
 
 alias ls="ls --color"
 alias isort="isort --profile=black"
+alias cl="clear"
+alias za="zathura"

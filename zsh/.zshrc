@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Minimal Prompt:
+
+# Load prompt
 source ~/.zsh/prompt.zsh
 
 # Load syntax highlighting
@@ -7,25 +8,25 @@ source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 if [[ "$(tput colors)" == "256" ]]; then
     ZSH_HIGHLIGHT_STYLES[default]=none
-    ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=160
-    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=037,bold #,standout
-    ZSH_HIGHLIGHT_STYLES[alias]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[builtin]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[function]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[command]=fg=064,bold
-    ZSH_HIGHLIGHT_STYLES[precommand]=fg=064,underline
+    ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=001
+    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=037
+    ZSH_HIGHLIGHT_STYLES[alias]=fg=002
+    ZSH_HIGHLIGHT_STYLES[builtin]=fg=002
+    ZSH_HIGHLIGHT_STYLES[function]=fg=002
+    ZSH_HIGHLIGHT_STYLES[command]=fg=002
+    ZSH_HIGHLIGHT_STYLES[precommand]=fg=002,underline
     ZSH_HIGHLIGHT_STYLES[commandseparator]=none
     ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=037
-    ZSH_HIGHLIGHT_STYLES[path]=fg=166,underline
+    ZSH_HIGHLIGHT_STYLES[path]=fg=009,underline
     ZSH_HIGHLIGHT_STYLES[globbing]=fg=033
     ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,underline
-    ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=125,bold
-    ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=125,bold
+    ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=005
+    ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=005
     ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=136
-    ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=136
+    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=003
+    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=003
+    ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=003
+    ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=003
     ZSH_HIGHLIGHT_STYLES[assign]=fg=037
     ZSH_HIGHLIGHT_STYLES[comment]=fg=246
 fi
@@ -73,8 +74,12 @@ export EDITOR=vim
 # Use Vim style line editing in zsh
 bindkey -v
 
-# Use incremental search
+# Use FZF to search history
 bindkey "^R" history-incremental-search-backward
+# Use FZF to change directory
+bindkey "^O" fzf-cd-widget
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Edit command line in Vim
 bindkey -a '^E' edit-command-line
@@ -82,21 +87,14 @@ bindkey -a '^E' edit-command-line
 # Disable shell builtins
 disable r
 
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Aliases
 source ~/.zsh/aliases.sh
 
-# Add virtualenv to PATH
-export PATH=$PATH:$HOME/Library/Python/3.10/bin
-
-# Use more minimal prompt
-export PROMPT_MODE=1
-export RPR_SHOW_GIT=(false, false)
-
-# Use Solarized theme for bat
+# Use Solarized for bat
 export BAT_THEME="Solarized (dark)"
+
+# Use Solarized for ls. See manpage for ls for more info
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 # Use bat for man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"

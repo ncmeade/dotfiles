@@ -30,6 +30,9 @@ augroup END
 set ttimeout
 set ttimeoutlen=100
 
+" You do not need to save before changing buffers.
+set hidden
+
 " Search matches are shown as you type.
 set incsearch
 
@@ -119,7 +122,7 @@ let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " Vimux {{{
 " Open the pane with a vertical split instead of a horizontal one.
 let g:VimuxOrientation = "v"
-"
+
 " The vertical pane takes up 20% of the height.
 let g:VimuxHeight = "20%"
 
@@ -133,12 +136,20 @@ function! VimuxSlime()
 endfunction
 " }}}
 
+" NERDCommenter {{{
+" Add spaces after comment delimiters. 
+let g:NERDSpaceDelims=1
+
+" Do not create default mappings.
+let g:NERDCreateDefaultMappings=0
+" }}}
+
 " VimTeX {{{
 " Use Zathura as the viewer.
 let g:vimtex_view_method = 'zathura'
 
 " Stop the quickfix window from being opened automatically.
-let g:vimtex_quickfix_mode = 0
+let g:vimtex_quickfix_mode=0
 " }}}
 
 " Mappings {{{
@@ -153,9 +164,14 @@ nnoremap <Leader>bd :bd<CR>
 " FZF
 nnoremap <Leader>fg :GFiles<CR>
 nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fs :GFiles?<CR>
 nnoremap <Leader>fl :Rg<CR>
 nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fh :Helptags<CR>
+nnoremap <Leader>fth :Helptags<CR>
+nnoremap <Leader>fcg :Commits<CR>
+nnoremap <Leader>fcb :BCommits<CR>
+nnoremap <Leader>fhc :History:<CR>
+nnoremap <Leader>fhs :History/<CR>
 
 " Vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
@@ -164,6 +180,10 @@ nnoremap <Leader>vb :call VimuxRunCommand("python3 " . bufname("%"))<CR>
 nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
 nnoremap <Leader>vc :VimuxInterruptRunner<CR>
 vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
+
+" NERDCommenter
+nnoremap <Leader>c <Plug>NERDCommenterToggle
+vnoremap <Leader>c <Plug>NERDCommenterToggle
 
 " NERDTree
 nnoremap <Leader>nt :NERDTreeToggle<CR>
