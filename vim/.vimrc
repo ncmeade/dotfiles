@@ -2,15 +2,12 @@
 call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'altercation/vim-colors-solarized'
+    Plug 'morhetz/gruvbox'
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'sheerun/vim-polyglot'
     Plug 'preservim/vimux'
-    Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
-    Plug 'ryanoasis/vim-devicons'
     Plug 'psf/black', {'branch': 'stable'}
     Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
     Plug 'junegunn/fzf.vim'
@@ -63,13 +60,11 @@ set expandtab
 
 " Colourscheme {{{
 set background=dark
-colorscheme solarized
 
-" Make CursorLineNr and SignColumn have same background as CursorLine. This fixes an 
-" issue with using the Solarized colourscheme. I can look into a better fix later.
-highlight clear CursorLineNr
-highlight CursorLineNr ctermfg=grey ctermbg=black
-highlight SignColumn ctermfg=grey ctermbg=black
+" Make the sign column the same colour as the background.
+let g:gruvbox_sign_column = 'bg0'
+
+colorscheme gruvbox
 " }}}
 
 " Airline {{{
@@ -86,15 +81,10 @@ let g:airline#extensions#whitespace#enabled=0
 let g:airline#extensions#tabline#fnamemod=":t"
 
 " Use Airline theme to match colourscheme.
-let g:airline_theme="solarized"
+let g:airline_theme="gruvbox"
 
-" Use fancy fonts.
-let g:airline_powerline_fonts=1
-" }}}
-
-" Devicons {{{
-" Disable fancy icons in the statusline.
-let g:webdevicons_enable_airline_statusline=0
+" Do not use fancy fonts.
+let g:airline_powerline_fonts=0
 " }}}
 
 " FZF {{{
@@ -119,6 +109,27 @@ let g:fzf_action = {
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " }}}
 
+" NERDCommenter {{{
+" Add spaces after comment delimiters. 
+let g:NERDSpaceDelims=1
+
+" Do not create default mappings.
+let g:NERDCreateDefaultMappings=0
+" }}}
+
+" Netrw {{{
+" Make the window 20% of the width.
+let g:netrw_winsize = 20
+" }}}
+
+" VimTeX {{{
+" Use Zathura as the viewer.
+let g:vimtex_view_method = 'zathura'
+
+" Stop the quickfix window from being opened automatically.
+let g:vimtex_quickfix_mode=0
+" }}}
+
 " Vimux {{{
 " Open the pane with a vertical split instead of a horizontal one.
 let g:VimuxOrientation = "v"
@@ -136,22 +147,6 @@ function! VimuxSlime()
 endfunction
 " }}}
 
-" NERDCommenter {{{
-" Add spaces after comment delimiters. 
-let g:NERDSpaceDelims=1
-
-" Do not create default mappings.
-let g:NERDCreateDefaultMappings=0
-" }}}
-
-" VimTeX {{{
-" Use Zathura as the viewer.
-let g:vimtex_view_method = 'zathura'
-
-" Stop the quickfix window from being opened automatically.
-let g:vimtex_quickfix_mode=0
-" }}}
-
 " Mappings {{{
 let mapleader=" "
 
@@ -160,6 +155,10 @@ nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>ba :badd 
 nnoremap <Leader>bd :bd<CR>
+
+" Fugitive
+nnoremap <Leader>gs :Git<CR>
+nnoremap <Leader>gl :Git log<CR>
 
 " FZF
 nnoremap <Leader>fg :GFiles<CR>
@@ -173,6 +172,19 @@ nnoremap <Leader>fcb :BCommits<CR>
 nnoremap <Leader>fhc :History:<CR>
 nnoremap <Leader>fhs :History/<CR>
 
+" Miscellaneous
+nnoremap <Leader>lb :Black<CR>
+nnoremap <Leader>di i breakpoint()<Esc>==^
+nnoremap <Leader>re :split $MYVIMRC<CR>
+nnoremap <Leader>rs :source $MYVIMRC<CR>
+
+" NERDCommenter
+nnoremap <Leader>c <Plug>NERDCommenterToggle
+vnoremap <Leader>c <Plug>NERDCommenterToggle
+
+" Netrw
+nnoremap <Leader>nt :Lexplore<CR>
+
 " Vimux
 nnoremap <Leader>vp :VimuxPromptCommand<CR>
 nnoremap <Leader>vr :VimuxRunLastCommand<CR>
@@ -181,20 +193,9 @@ nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
 nnoremap <Leader>vc :VimuxInterruptRunner<CR>
 vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
 
-" NERDCommenter
-nnoremap <Leader>c <Plug>NERDCommenterToggle
-vnoremap <Leader>c <Plug>NERDCommenterToggle
-
-" NERDTree
-nnoremap <Leader>nt :NERDTreeToggle<CR>
-
-" Fugitive
-nnoremap <Leader>gs :Git<CR>
-nnoremap <Leader>gl :Git log<CR>
-
-" Miscellaneous
-nnoremap <Leader>lb :Black<CR>
-nnoremap <Leader>di i breakpoint()<Esc>==^
-nnoremap <Leader>re :split $MYVIMRC<CR>
-nnoremap <Leader>rs :source $MYVIMRC<CR>
+" Quickfix list
+nnoremap <Leader>qo :copen<CR>
+nnoremap <Leader>qc :cclose<CR>
+nnoremap <Leader>qn :cnext<CR>
+nnoremap <Leader>qp :cprev<CR>
 " }}}
