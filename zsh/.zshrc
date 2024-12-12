@@ -68,10 +68,10 @@ setopt SHARE_HISTORY
 # Time to wait for additional characters in a sequence
 KEYTIMEOUT=1 # Corresponds to 10ms
 
-# Use vim as the editor
+# Use Vim as default editor
 export EDITOR=vim
 
-# Use Vim style line editing in zsh
+# Use Vim line editing in Zsh
 bindkey -v
 
 # Use FZF to search history
@@ -90,10 +90,9 @@ disable r
 # Aliases
 source ~/.zsh/aliases.sh
 
-# Use Solarized for bat
-export BAT_THEME="Solarized (dark)"
-
-# Use Solarized for ls. See manpage for ls for more info
+# Use Gruvbox for bat
+export BAT_THEME="gruvbox-dark"
+# Use Gruvbox for ls
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 # Use bat for man pages

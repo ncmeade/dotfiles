@@ -3,12 +3,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'morhetz/gruvbox'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'preservim/vimux'
     Plug 'preservim/nerdcommenter'
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'psf/black', {'branch': 'stable'}
     Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
     Plug 'junegunn/fzf.vim'
     Plug 'lervag/vimtex'
@@ -67,6 +66,29 @@ let g:gruvbox_sign_column = 'bg0'
 colorscheme gruvbox
 " }}}
 
+" CoC {{{
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable delay.
+set updatetime=300
+
+" Always show the signcolumn.
+set signcolumn=yes
+
+" Check if the last character in the column is whitespace.
+function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Show documentation for symbol cursor is on.
+function! ShowDocumentation()
+	if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
+	else
+		call feedkeys('K', 'in')
+	endif
+endfunction
+" }}}
+
 " Airline {{{
 " Let Airline handle the mode.
 set noshowmode
@@ -100,7 +122,7 @@ endfunction
 
 " Bindings for when FZF is open.
 let g:fzf_action = {
-	\ 'ctrl-q': function('s:build_quickfix_list'),
+    \ 'ctrl-q': function('s:build_quickfix_list'),
 	\ 'ctrl-t': 'tab split',
 	\ 'ctrl-x': 'split',
 	\ 'ctrl-v': 'vsplit' }
@@ -137,6 +159,9 @@ let g:VimuxOrientation = "v"
 " The vertical pane takes up 20% of the height.
 let g:VimuxHeight = "20%"
 
+" Change the prompt string.
+let g:VimuxPromptString = "> "
+
 " Slime-like functionality. Sends the contents of the register to the REPL.
 function! VimuxSlime()
     " Remove blank lines.
@@ -156,6 +181,14 @@ nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>ba :badd 
 nnoremap <Leader>bd :bd<CR>
 
+" CoC
+inoremap <expr><silent> <Tab> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
+nnoremap <Leader>lf <Plug>(coc-format)
+nnoremap <Leader>le :<C-u>CocList diagnostics<CR>
+nnoremap <silent> <Leader>ld <Plug>(coc-definition)
+nnoremap <silent> <Leader>lr <Plug>(coc-references)
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
 " Fugitive
 nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gl :Git log<CR>
@@ -173,7 +206,6 @@ nnoremap <Leader>fhc :History:<CR>
 nnoremap <Leader>fhs :History/<CR>
 
 " Miscellaneous
-nnoremap <Leader>lb :Black<CR>
 nnoremap <Leader>di i breakpoint()<Esc>==^
 nnoremap <Leader>re :split $MYVIMRC<CR>
 nnoremap <Leader>rs :source $MYVIMRC<CR>

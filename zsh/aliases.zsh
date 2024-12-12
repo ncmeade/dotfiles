@@ -33,6 +33,21 @@ tmux_dev_environment () {
     tmux attach -t ${session_name}
 }
 
+
+notes () {
+    # Opens the markdown notes file for today in Vim if it exists. If it does not
+    # exist, a new file is created.
+    #
+    # Each file is named using the ISO 8601 format (YYY-MM-DD).
+    if [ ! -f "${HOME}/rs/note/$(date -I).md" ]; then
+        echo "# $(date -I)" > "${HOME}/rs/note/$(date -I).md"
+    fi
+    
+    # Open at the last position.
+    vim "+ normal G$" "${HOME}/rs/note/$(date -I).md" 
+}
+
+
 # Open aliases for easy editing.
 alias aliases="vim ~/.zsh/aliases.sh && source ~/.zsh/aliases.sh"
 

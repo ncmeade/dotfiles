@@ -33,6 +33,8 @@ cp vim/.vimrc $HOME/.vimrc
 To install plugins, open `vim` and run `:PlugInstall`.
 This should download and install all of the plugins listed in the `.vimrc`.
 
+Also, to use [Conquer of Completion](https://github.com/neoclide/coc.nvim) you will need to copy `vim/coc-settings.json` to `$HOME/.vimrc`.
+
 ### Zathura
 The Homebrew formula to install Zathura is available [here](https://github.com/zegervdv/homebrew-zathura).
 The commands below can be used to install Zathura
