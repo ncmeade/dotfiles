@@ -209,6 +209,7 @@ nnoremap <Leader>fhs :History/<CR>
 nnoremap <Leader>di i breakpoint()<Esc>==^
 nnoremap <Leader>re :split $MYVIMRC<CR>
 nnoremap <Leader>rs :source $MYVIMRC<CR>
+inoremap jk <Esc>
 
 " NERDCommenter
 nnoremap <Leader>c <Plug>NERDCommenterToggle

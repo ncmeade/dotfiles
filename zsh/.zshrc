@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Load prompt
-source ~/.zsh/prompt.zsh
+source "${HOME}/.zsh/prompt.zsh"
 
 # Load syntax highlighting
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "${HOME}/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 if [[ "$(tput colors)" == "256" ]]; then
     ZSH_HIGHLIGHT_STYLES[default]=none
@@ -66,13 +66,14 @@ setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
 # Time to wait for additional characters in a sequence
-KEYTIMEOUT=1 # Corresponds to 10ms
+KEYTIMEOUT=50 # Corresponds to 50ms
 
 # Use Vim as default editor
 export EDITOR=vim
-
-# Use Vim line editing in Zsh
+# Use Vim mode in Zsh
 bindkey -v
+# Easier escape to normal mode
+bindkey -M viins 'jk' vi-cmd-mode
 
 # Use FZF to search history
 bindkey "^R" history-incremental-search-backward
@@ -88,14 +89,14 @@ bindkey -a '^E' edit-command-line
 disable r
 
 # Aliases
-source ~/.zsh/aliases.sh
+source "${HOME}/.zsh/aliases.zsh"
 
 # Use Gruvbox for bat
 export BAT_THEME="gruvbox-dark"
 # Use Gruvbox for ls
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-# Use bat for man pages
+# Use Bat for manpages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Make breakpoint builtin in Python use ipdb
