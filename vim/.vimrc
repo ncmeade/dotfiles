@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes'
     Plug 'morhetz/gruvbox'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'jpalardy/vim-slime'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'preservim/vimux'
     Plug 'preservim/nerdcommenter'
@@ -152,6 +153,17 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_quickfix_mode=0
 " }}}
 
+" Slime {{{
+" Target should always be Tmux.
+let g:slime_target = "tmux"
+
+" Set default pane to send to.
+let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+
+" Use bracketed paste mode. See https://cirw.in/blog/bracketed-paste.
+let g:slime_bracketed_paste = 1
+" }}}
+
 " Vimux {{{
 " Open the pane with a vertical split instead of a horizontal one.
 let g:VimuxOrientation = "v"
@@ -161,15 +173,6 @@ let g:VimuxHeight = "20%"
 
 " Change the prompt string.
 let g:VimuxPromptString = "> "
-
-" Slime-like functionality. Sends the contents of the register to the REPL.
-function! VimuxSlime()
-    " Remove blank lines.
-    let empty_lines_pat = '\(^\|\n\)\zs\(\s*\n\+\)\+'
-    let no_empty_lines = substitute(@v, empty_lines_pat, "", "g")
-    " Send the contents of the register to the REPL.
-    call VimuxRunCommand(no_empty_lines)
-endfunction
 " }}}
 
 " Mappings {{{
@@ -224,8 +227,11 @@ nnoremap <Leader>vr :VimuxRunLastCommand<CR>
 nnoremap <Leader>vb :call VimuxRunCommand("python3 " . bufname("%"))<CR>
 nnoremap <Leader>vl :VimuxClearTerminalScreen<CR>
 nnoremap <Leader>vc :VimuxInterruptRunner<CR>
-vnoremap <Leader>vs "vy :call VimuxSlime()<CR>
 
+" Slime
+xnoremap <leader>vs <Plug>SlimeRegionSend
+nnoremap <leader>s <Plug>SlimeMotionSend
+nnoremap <leader>ss <Plug>SlimeLineSend
 " Quickfix list
 nnoremap <Leader>qo :copen<CR>
 nnoremap <Leader>qc :cclose<CR>
