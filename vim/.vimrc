@@ -107,7 +107,7 @@ let g:airline#extensions#tabline#fnamemod=":t"
 let g:airline_theme="gruvbox"
 
 " Do not use fancy fonts.
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 " }}}
 
 " FZF {{{
@@ -212,7 +212,7 @@ nnoremap <Leader>fhs :History/<CR>
 nnoremap <Leader>di i breakpoint()<Esc>==^
 nnoremap <Leader>re :split $MYVIMRC<CR>
 nnoremap <Leader>rs :source $MYVIMRC<CR>
-inoremap jk <Esc>
+nnoremap <Leader>p :set paste!<CR>:set paste?<CR>
 
 " NERDCommenter
 nnoremap <Leader>c <Plug>NERDCommenterToggle
@@ -232,6 +232,7 @@ nnoremap <Leader>vc :VimuxInterruptRunner<CR>
 xnoremap <leader>vs <Plug>SlimeRegionSend
 nnoremap <leader>s <Plug>SlimeMotionSend
 nnoremap <leader>ss <Plug>SlimeLineSend
+
 " Quickfix list
 nnoremap <Leader>qo :copen<CR>
 nnoremap <Leader>qc :cclose<CR>
