@@ -6,17 +6,6 @@ git clone https://github.com/ncmeade/dotfiles.git
 cd dotfiles
 ```
 
-### Aerospace
-The Homebrew formula to install `aerospace` is available [here](https://github.com/nikitabobko/AeroSpace).
-The command below can be used to install `aerospace`
-```bash
-brew install --cask nikitabobko/tap/aerospace
-```
-The custom configuration for `aerospace` can be installed via
-```bash
-cp aerospace/.aerospace.toml ${HOME}/.aerospace.toml
-```
-
 ### Git
 To setup `git`, copy the configuration file via
 ```bash
