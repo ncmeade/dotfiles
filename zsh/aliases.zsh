@@ -13,7 +13,7 @@ tmux_dev_environment () {
     tmux new-window -n 'remote' -d
 
     # Split windows.
-    tmux split-window -h -v -p 25 -t 0. -d
+    tmux split-window -h -v -p 50 -t 0. -d
     tmux split-window -h -v -p 50 -t 1. -d
 
     # Activate virtualenv.
@@ -23,11 +23,11 @@ tmux_dev_environment () {
         tmux send-keys -t "${session_name}:1.0" "source env/bin/activate; clear" C-m
         tmux send-keys -t "${session_name}:1.1" "source env/bin/activate; clear" C-m
         tmux send-keys -t "${session_name}:2.0" "source env/bin/activate; clear" C-m
-    fi
 
-    # Activate IPython.
-    if [ -x "$(command -v ipython)" ]; then
-        tmux send-keys -t "${session_name}:1.1" "ipython" C-m
+        # Start IPython, if available.
+        if $(source "env/bin/activate" && command -v ipython >/dev/null 2>&1); then
+            tmux send-keys -t "${session_name}:1.1" "ipython" C-m
+        fi
     fi
 
     tmux attach -t ${session_name}
@@ -35,21 +35,22 @@ tmux_dev_environment () {
 
 
 notes () {
-    # Opens the markdown notes file for today in Vim if it exists. If it does not
+    # Opens the Markdown notes file for today in Vim if it exists. If it does not
     # exist, a new file is created.
     #
     # Each file is named using the ISO 8601 format (YYY-MM-DD).
-    if [ ! -f "${HOME}/rs/note/$(date -I).md" ]; then
-        echo "# $(date -I)" > "${HOME}/rs/note/$(date -I).md"
+    timestamp=$(date -I)
+
+    if [ ! -f "${HOME}/rs/note/${timestamp}.md" ]; then
+        echo "# $(date -I)" > "${HOME}/rs/note/${timestamp}.md"
     fi
-    
+
     # Open at the last position.
-    vim "+ normal G$" "${HOME}/rs/note/$(date -I).md" 
+    nvim "+ normal G$" "${HOME}/rs/note/${timestamp}.md" 
 }
 
-
 # Open aliases for easy editing.
-alias aliases="vim ~/.zsh/aliases.sh && source ~/.zsh/aliases.sh"
+alias aliases="nvim ~/.zsh/aliases.zsh && source ~/.zsh/aliases.zsh"
 
 alias ls="ls --color"
 alias isort="isort --profile=black"

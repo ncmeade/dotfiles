@@ -1,7 +1,0 @@
-{
-  "pyright.inlayHints.functionReturnTypes": false,
-  "pyright.inlayHints.variableTypes": false,
-  "pyright.inlayHints.parameterTypes": false,
-  "python.formatting.provider": "black",
-  "pyright.disableDiagnostics": false
-}
