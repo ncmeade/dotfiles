@@ -25,11 +25,11 @@ cp "tmux/.tmux.conf" "${HOME}/.tmux.conf"
 ```
 
 ### Vim
-To setup `neovim`, copy the configuration files via
+To setup `nvim`, copy the configuration files via
 ```bash
-mkdir -p "${HOME}/.config/neovim"
-cp "vim/init.lua" "${HOME}/.config/neovim" 
-cp -r "vim/lua" "${HOME}/.config/neovim" 
+mkdir -p "${HOME}/.config/nvim"
+cp "vim/init.lua" "${HOME}/.config/nvim" 
+cp -r "vim/lua" "${HOME}/.config/nvim" 
 ```
 To install LSPs, linters, and formatters, use [Mason](https://github.com/mason-org/mason.nvim).
 
