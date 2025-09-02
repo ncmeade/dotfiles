@@ -9,7 +9,7 @@ return {
 		-- Define your formatters
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "isort", "black" },
+			python = { "ruff_format", "ruff_organize_imports" },
 		},
 		-- Set default options
 		default_format_opts = {

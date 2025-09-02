@@ -73,6 +73,7 @@ return {
 			vim.keymap.set("n", "<Leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
 			vim.keymap.set("n", "<Leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 			vim.keymap.set("n", "<Leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
+			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<Leader>f/", function()

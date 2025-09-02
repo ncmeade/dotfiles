@@ -2,21 +2,21 @@
 vim.o.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Sync clipboard between OS and Neovim.
 -- Schedule the setting after `UiEnter` because it can increase startup-time.
 -- Remove this option if you want your OS clipboard to remain independent.
 -- See `:help 'clipboard'`
 vim.schedule(function()
-	vim.o.clipboard = 'unnamedplus'
+	vim.o.clipboard = "unnamedplus"
 end)
 
 -- Use cursorline to show position in file
 vim.o.cursorline = true
 
 -- Set a vertical guide
-vim.o.colorcolumn = '88'
+vim.o.colorcolumn = "88"
 
 -- Use four space tabs
 vim.o.tabstop = 4
@@ -30,7 +30,7 @@ vim.g.netrw_winsize = 20
 vim.g.hidden = true
 
 -- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
@@ -44,7 +44,7 @@ vim.o.incsearch = true
 vim.o.timeoutlen = 400
 
 -- Use big cursor
-vim.o.guicursor = ''
+vim.o.guicursor = ""
 
 -- Don't use swapfiles
 vim.o.swapfile = false
