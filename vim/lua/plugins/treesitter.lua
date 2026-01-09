@@ -1,31 +1,43 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	main = "nvim-treesitter.configs", -- Sets main module to use for opts
-	-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-	opts = {
-		ensure_installed = {
-			"bash",
-			"c",
-			"diff",
-			"html",
-			"lua",
-			"luadoc",
-			"markdown",
-			"markdown_inline",
-			"query",
-			"vim",
-			"vimdoc",
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		branch = "master",
+		main = "nvim-treesitter.configs",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
-		-- Autoinstall languages that are not installed
-		auto_install = true,
-		highlight = {
-			enable = true,
-			-- Some languages depend on Vim's regex highlighting system (such as Ruby) for indent rules.
-			-- If you are experiencing weird indenting issues, add the language to
-			-- the list of additional_vim_regex_highlighting and disabled languages for indent.
-			additional_vim_regex_highlighting = { "ruby" },
+		opts = {
+			ensure_installed = {
+				"bash",
+				"diff",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"query",
+				"vim",
+				"vimdoc",
+			},
+			auto_install = false,
+			highlight = { enable = true },
+			indent = { enable = true },
+			textobjects = {
+				select = {
+					enable = true,
+					lookahead = true,
+					keymaps = {
+						["af"] = "@function.outer",
+						["if"] = "@function.inner",
+						["ac"] = "@class.outer",
+						["ic"] = "@class.inner",
+						["aa"] = "@parameter.outer",
+						["ia"] = "@parameter.inner",
+					},
+				},
+			},
 		},
-		indent = { enable = true, disable = { "ruby" } },
 	},
 }

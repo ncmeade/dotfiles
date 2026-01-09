@@ -1,12 +1,15 @@
 require("lazy").setup({
 	require("plugins.blink-cmp"),
+	require("plugins.bufferline"),
 	require("plugins.colours"),
 	require("plugins.conform"),
 	require("plugins.fugitive"),
 	require("plugins.lsp"),
+	require("plugins.lualine"),
 	require("plugins.slime"),
 	require("plugins.telescope"),
 	require("plugins.tmux-vim-navigator"),
 	require("plugins.treesitter"),
 	require("plugins.vimtex"),
+	require("plugins.vimux"),
 })

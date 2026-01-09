@@ -56,6 +56,7 @@ setopt INTERACTIVE_COMMENTS
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
 SAVEHIST=$HISTSIZE
+HISTORY_IGNORE="(ls|cd|pwd|exit|clear|cl)"
 # Append to history file
 setopt APPEND_HISTORY
 # Write to the history file immediately
@@ -68,12 +69,17 @@ setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
 # Time to wait for additional characters in a sequence
-KEYTIMEOUT=50  # Corresponds to 10ms
+KEYTIMEOUT=50
 
 # Use Neovim as default editor
 export EDITOR=neovim
 # Use Vim mode in Zsh
 bindkey -v
+
+# Use fd
+export FZF_DEFAULT_COMMAND="fd --strip-cwd-prefix"
+export FZF_ALT_C_COMMAND="fd --strip-cwd-prefix --type d"
+export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix"
 
 # Use FZF to search history
 bindkey "^R" history-incremental-search-backward
@@ -90,6 +96,9 @@ bindkey "^Y" autosuggest-accept
 
 # Disable builtin for repeating last command
 disable r
+
+# Disable less history file
+export LESSHISTFILE=-
 
 # Aliases
 source "${HOME}/.zsh/aliases.zsh"
