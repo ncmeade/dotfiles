@@ -65,6 +65,27 @@ note () {
     nvim "+ normal G$" "${note_dir}/${day}.md" 
 }
 
+
+bugwarrior_pull () {
+    # Pulls GitHub issues into Taskwarrior using Bugwarrior.
+    echo "Running Bugwarrior dry-run pull."
+    uv run --with bugwarrior bugwarrior pull --dry-run
+
+    echo -n "Continue with actual pull? (Y/n): "
+    read response
+    response=${response:-Y}
+
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        uv run --with bugwarrior bugwarrior pull
+    else
+        echo "Aborted."
+        return 1
+    fi
+
+    echo "Pull complete."
+}
+
+
 alias aliases="nvim ~/.zsh/aliases.zsh && source ~/.zsh/aliases.zsh"
 alias ls="ls --color"
 alias cl="clear"
