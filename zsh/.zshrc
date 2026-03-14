@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+export PATH="${HOME}/.local/bin:${PATH}"
+
 # Load prompt
 source "${HOME}/.zsh/prompt.zsh"
 # Load syntax highlighting
@@ -56,7 +58,7 @@ setopt INTERACTIVE_COMMENTS
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
 SAVEHIST=$HISTSIZE
-HISTORY_IGNORE="(ls|cd|pwd|exit|clear|cl)"
+HISTORY_IGNORE="(ls *|cd *|cd|ls|pwd|exit|clear|cl)"
 # Append to history file
 setopt APPEND_HISTORY
 # Write to the history file immediately

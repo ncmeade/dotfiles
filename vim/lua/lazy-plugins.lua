@@ -1,6 +1,5 @@
 require("lazy").setup({
 	require("plugins.blink-cmp"),
-	require("plugins.bufferline"),
 	require("plugins.colours"),
 	require("plugins.conform"),
 	require("plugins.fugitive"),

@@ -1,0 +1,24 @@
+#!/bin/zsh
+# Opens the Markdown note file for today in Neovim.
+#
+# If the file does not exist, a new one is created. Each file is
+# categorized using the ISO 8601 format (YYYY-MM-DD).
+
+set -euo pipefail
+
+timestamp=$(date -I)
+
+year=${timestamp:0:4}
+month=${timestamp:5:2}
+day=${timestamp:8:2}
+
+note_dir="${HOME}/rs/note/${year}/${month}/${day}"
+
+mkdir -p "${note_dir}"
+
+if [[ ! -f "${note_dir}/notes.md" ]]; then
+    echo "# ${timestamp}" > "${note_dir}/notes.md"
+fi
+
+# Open at the last position
+nvim "+ normal G$" "${note_dir}/notes.md"
