@@ -74,7 +74,7 @@ setopt SHARE_HISTORY
 KEYTIMEOUT=50
 
 # Use Neovim as default editor
-export EDITOR=neovim
+export EDITOR=nvim
 # Use Vim mode in Zsh
 bindkey -v
 
